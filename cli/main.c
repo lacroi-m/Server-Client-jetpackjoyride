@@ -5,15 +5,46 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:13 2017 Maxime Lacroix
-** Last update Thu Jul 13 10:24:01 2017 Maxime Lacroix
+** Last update Thu Jul 13 12:21:16 2017 Maxime Lacroix
 */
 
 #include "cli.h"
 
-int main(int ac, char **av)
+int	check_args(char **av)
 {
-  (void)av;
+  int		x;
+  int		flag;
+
+  flag = 0;
+  x = 1;
+  while (av[x])
+    {
+      if (strcmp(av[x], "-h") == 0 && x < 5 - 1)
+	{
+	  x++;
+	  flag++;
+	}
+      else if (strcmp(av[x], "-p") == 0 && x < 5 - 1)
+	{
+	  x++;
+	  if (is_numeric(av[x]) == 84)
+	    return (84);
+	  flag++;
+	}
+      x++;
+    }
+  if (flag == 2)
+    return (0);
+  return (84);
+}
+
+int	main(int ac, char **av)
+{
   if (ac < 5 || ac > 5)
-    return (84);
+    return (my_putstr(2, "Arguments invalide\n", 84));
+  else if (check_args(av) == 84)
+    return (my_putstr(2, "Arguments invalide\n", 84));
+  else
+    return (launcher(av));
   return (0);
 }
