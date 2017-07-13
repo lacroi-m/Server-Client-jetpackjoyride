@@ -5,10 +5,17 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:32:24 2017 Maxime Lacroix
-** Last update Thu Jul 13 12:17:08 2017 Maxime Lacroix
+** Last update Thu Jul 13 13:38:56 2017 Maxime Lacroix
 */
 
 #include "cli.h"
+
+
+void	free_struct()
+{
+  free(p->ip);
+  free(p);
+}
 
 int	is_numeric(char *str)
 {

@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Thu Jul 13 12:36:59 2017 Maxime Lacroix
+** Last update Thu Jul 13 14:02:30 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -34,16 +34,19 @@ int	get_port(char **av)
 
 void	init_struct(char *ip, int port)
 {
-  p = malloc(sizeof(t_data *));
+  p = malloc(sizeof(t_data *) * 2);
   p->port = port;
-  p->ip = ip;
+  p->ip = malloc(sizeof(char) * (my_strlen(ip) + 1));
+  p->ip = strcpy(p->ip, ip);
 }
 
 int	launcher(char **av)
-{  
-  write (1, "You have launched\n", 18);
+{
+  write (1, "Struct inatisation\n", 19);
   init_struct(get_ip(av), get_port(av));
-  write (1, "Struct inatisations\n", 20);
+  write (1, "You have  launched\n", 19);
   printf("port = '%d'\nip = '%s'\n", p->port, p->ip);
+  communication();
+  free_struct();
   return (0);
 }
