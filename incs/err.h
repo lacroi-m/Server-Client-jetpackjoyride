@@ -5,12 +5,13 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 16:37:59 2017 dorian turba
-** Last update Thu Jul 13 18:39:17 2017 dorian turba
+** Last update Thu Jul 13 19:24:49 2017 dorian turba
 */
 
 #ifndef ERR_H
 # define ERR_H
 
 # define ARG_INV 1
+# define MAP_INV 1
 
 #endif /* !ERR_H */

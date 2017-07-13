@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:34:46 2017 dorian turba
-** Last update Thu Jul 13 10:52:49 2017 dorian turba
+** Last update Thu Jul 13 21:17:03 2017 dorian turba
 */
 
 #ifndef INIT_SERVER_H
@@ -30,11 +30,12 @@ typedef struct	s_data_server
 {
   char			fd_type[MAX_FD];
   int			port;
-  fct			fct_read[MAX_FD];
-  fct			fct_write[MAX_FD];
+  //  fct			fct_read[MAX_FD];
+  //fct			fct_write[MAX_FD];
   int			fd_server;
-  t_client		clients[MAX_FD];
-  struct s_map		*map;
+  int			client_nbr;
+  //  t_client		clients[MAX_FD];
+  char			*map;
   struct s_data_flags	*data_flags;  
 }		t_data_server;
 

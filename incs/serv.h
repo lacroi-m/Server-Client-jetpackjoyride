@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Thu Jul 13 18:43:18 2017 dorian turba
+** Last update Thu Jul 13 21:10:35 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -21,13 +21,7 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <unistd.h>
-
-typedef struct	s_map
-{
-  char		*map;
-  int		width;
-  int		height;
-}		t_map;
+#include <netdb.h>
 
 typedef struct	s_data_flags
 {
