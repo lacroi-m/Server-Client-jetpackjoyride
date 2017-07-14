@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Thu Jul 13 21:10:35 2017 dorian turba
+** Last update Fri Jul 14 12:42:30 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -22,6 +22,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <signal.h>
 
 typedef struct	s_data_flags
 {
@@ -32,5 +33,8 @@ typedef struct	s_data_flags
 
 int	error(int);
 int	arg_check(int, char**, t_data_flags*);
+void	int_handler(int);
+int	check_map(char*);
+int	fill_map(char*, t_data_server*);
 
 #endif /*_SERV_H_*/
