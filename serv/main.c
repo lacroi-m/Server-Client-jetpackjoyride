@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Fri Jul 14 12:49:00 2017 dorian turba
+** Last update Fri Jul 14 16:18:49 2017 dorian turba
 */
 
 #include "serv.h"
@@ -24,6 +24,8 @@ int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
   data_serv->fd_type[fd] = FD_SERVER;
   data_serv->fd_server = fd;
   data_serv->client_nbr = 2;
+  data_serv->fct_read[fd] = add_client;
+  data_serv->fct_write[fd] = NULL;
   if (fill_map(data_flags->map, data_serv) == 84)
     return (84);
   data_serv->data_flags = data_flags;
@@ -62,10 +64,10 @@ int		main(int ac, char **av)
     {
       if (add_server(&data_server, &data_flags) == 84)
 	return (84);
-      printf("map : %s\n", data_server.map);
       while (keep_running)
 	{
-	  //run_server(&data_server);
+	  if (run_server(&data_server) == 84)
+	    return (84);
 	}
     }
   free(data_flags.map);
