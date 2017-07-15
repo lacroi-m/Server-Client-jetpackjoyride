@@ -5,10 +5,11 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Thu Jul 13 14:02:30 2017 Maxime Lacroix
+** Last update Fri Jul 14 16:59:41 2017 Maxime Lacroix
 */
 
 #include "cli.h"
+#include "communication.h"
 
 char	*get_ip(char **av)
 {
@@ -42,11 +43,13 @@ void	init_struct(char *ip, int port)
 
 int	launcher(char **av)
 {
-  write (1, "Struct inatisation\n", 19);
+  char	*msg;
+  
   init_struct(get_ip(av), get_port(av));
-  write (1, "You have  launched\n", 19);
-  printf("port = '%d'\nip = '%s'\n", p->port, p->ip);
-  communication();
+  init_communication(p->port, p->ip);
+  msg = receiveit(0);
+  printf("receiving '%s'\n", msg);
+  free(msg);
   free_struct();
   return (0);
 }
