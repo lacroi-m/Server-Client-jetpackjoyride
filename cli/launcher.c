@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Sat Jul 15 11:27:54 2017 Maxime Lacroix
+** Last update Sat Jul 15 16:54:39 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -51,6 +51,7 @@ int	launcher(char **av)
   if (sendit("ID", com->com_fd) == 0)
     {
       msg = receiveit(0, com->com_fd);
+      //      msgb = cutreturn(msg)
       printf("receiving '%s'\n", msg);
       sendit("MAP", com->com_fd);
       printf("trying to send 'MAP'\n");

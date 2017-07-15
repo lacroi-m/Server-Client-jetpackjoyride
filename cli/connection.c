@@ -5,43 +5,10 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 13:56:34 2017 Maxime Lacroix
-** Last update Sat Jul 15 11:27:11 2017 Maxime Lacroix
+** Last update Sat Jul 15 17:07:24 2017 Maxime Lacroix
 */
 
 #include "communication.h"
-
-char	*hostname_to_ip(char *hostname)
-{
-  struct hostent *he;
-  if (!(he = gethostbyname(hostname)))
-    return (NULL);
-
-  struct in_addr **addr_list;
-  addr_list = (struct in_addr **)he->h_addr_list;
-  if (!(*addr_list))
-    return (NULL);
-
-  return inet_ntoa(*addr_list[0]);
-}
-
-
-void	init_communication(unsigned short port, char *ip)
-{
-  struct sockaddr_in s_in;
-  struct protoent    *pro;
-
-  com = malloc(sizeof(t_com) * 2);
-  if ((pro = getprotobyname("TCP")) == NULL)
-    exit_error();
-  if (!(com->com_fd = socket(AF_INET, SOCK_STREAM, pro->p_proto)))
-    exit_error();
-  bzero(&s_in, sizeof(struct sockaddr_in));
-  s_in.sin_family = AF_INET;
-  s_in.sin_port = htons(port);
-  s_in.sin_addr.s_addr = inet_addr(hostname_to_ip(ip));
-  if (connect(com->com_fd, (struct sockaddr *)&s_in, sizeof(s_in)) == -1)
-    exit_error();
-}
 
 int canReceive(int com_fd)
 {
@@ -79,6 +46,20 @@ int	findreturn(char *str)
   return (i);
 }
 
+char	*cutreturn(char *str)
+{
+  int	pos;
+  char	*nstr;
+  
+  pos = -1;
+  while (str[++pos] && str[pos] != '\n');
+  nstr = malloc(sizeof(char) * pos + 1);
+  nstr = strncat(nstr, str, pos);
+  nstr[pos + 1] = '\0';
+
+  return (nstr);
+}
+
 char	*receiveit(int isBlock, int com_fd)
 {
   (void)isBlock;
@@ -110,7 +91,7 @@ char	*receiveit(int isBlock, int com_fd)
   if (tmp == NULL)
     return (NULL);
   tmp[i] = '\0';
-  return (tmp);
+  return (cutreturn(tmp));
 }
 
 int	sendit(char *msg, int com_fd)
