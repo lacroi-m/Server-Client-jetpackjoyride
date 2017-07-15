@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Sat Jul 15 16:01:33 2017 Maxime Lacroix
+** Last update Sat Jul 15 16:53:10 2017 dorian turba
 */
 
 #include "serv.h"
@@ -45,7 +45,7 @@ int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
   if ((fd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) == -1)
     return (84);
   s_in.sin_family = AF_INET;
-  s_in.sin_port = ntohs(4242);
+  s_in.sin_port = ntohs(data_flags->port);
   s_in.sin_addr.s_addr = htonl(INADDR_ANY);
   if (bind(fd, (struct sockaddr*)&s_in, sizeof(s_in)) == -1)
     {
