@@ -5,19 +5,19 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 16:34:14 2017 dorian turba
-** Last update Sat Jul 15 10:29:23 2017 dorian turba
+** Last update Sat Jul 15 10:52:00 2017 dorian turba
 */
 
 #include "serv.h"
 
 int	is_num(char *str)
 {
-  for (int i = 0; i < strlen(str); ++i)
+  for (unsigned int i = 0; i < strlen(str); ++i)
     {
       if (!isdigit(str[i]))
 	return (84);
     }
-  
+  return (0);
 }
 
 int	arg_check(int ac, char **av, t_data_flags *data_flags)

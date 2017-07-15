@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Sat Jul 15 10:30:30 2017 dorian turba
+** Last update Sat Jul 15 10:51:18 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -46,6 +46,6 @@ void	add_client(t_data_server*, int);
 void	client_write(t_data_server*, int);
 void	client_read(t_data_server*, int);
 void	make_msg(char*, t_client*);
-int	is_num(char *str)
+int	is_num(char*);
 
 #endif /*_SERV_H_*/
