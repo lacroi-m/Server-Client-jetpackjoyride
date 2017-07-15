@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 14:55:48 2017 Maxime Lacroix
-** Last update Thu Jul 13 20:53:38 2017 Maxime Lacroix
+** Last update Sat Jul 15 11:24:31 2017 Maxime Lacroix
 */
 
 #ifndef _COMMUNICATION_H_
@@ -29,8 +29,8 @@ typedef struct	s_com
 t_com		*com;
 
 void		init_communication(unsigned short port, char *ip);
-char		*receiveit(int isBlock);
-int		sendit(char *msg);
+char		*receiveit(int isBlock, int com_fd);
+int		sendit(char *msg, int com_fd);
 
 void		exit_error();
 int		my_strlen(char *str);

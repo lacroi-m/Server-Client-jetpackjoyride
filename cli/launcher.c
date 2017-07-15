@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Fri Jul 14 16:59:41 2017 Maxime Lacroix
+** Last update Sat Jul 15 11:27:54 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -44,12 +44,21 @@ void	init_struct(char *ip, int port)
 int	launcher(char **av)
 {
   char	*msg;
-  
+
   init_struct(get_ip(av), get_port(av));
   init_communication(p->port, p->ip);
-  msg = receiveit(0);
-  printf("receiving '%s'\n", msg);
-  free(msg);
+  printf("trying to send 'ID'\n");
+  if (sendit("ID", com->com_fd) == 0)
+    {
+      msg = receiveit(0, com->com_fd);
+      printf("receiving '%s'\n", msg);
+      sendit("MAP", com->com_fd);
+      printf("trying to send 'MAP'\n");
+      if (msg != NULL)
+	free(msg);
+    }
+  else
+    printf("send 'ID' failed\n");
   free_struct();
   return (0);
 }
