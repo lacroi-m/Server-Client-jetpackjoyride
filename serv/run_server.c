@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:25:43 2017 dorian turba
-** Last update Sat Jul 15 10:54:14 2017 dorian turba
+** Last update Sat Jul 15 16:57:37 2017 dorian turba
 */
 
 #include "serv.h"
@@ -37,7 +37,7 @@ int	my_select(int fd_max, fd_set *fd_read, fd_set *fd_write)
   tv.tv_sec = 20;
   tv.tv_usec = 0;
   if (select(fd_max + 1, fd_read, fd_write, NULL, &tv) == -1)
-    return (error(SELECT));
+    return (84);
   return (0);
 }
 

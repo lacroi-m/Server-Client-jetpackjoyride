@@ -5,16 +5,20 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Sat Jul 15 16:53:10 2017 dorian turba
+** Last update Sat Jul 15 17:14:29 2017 dorian turba
 */
 
 #include "serv.h"
 
 static volatile int keep_running = 1;
+char	*g_fmap;
+char	*g_map;
 
 void	int_handler(int dummy)
 {
   (void)dummy;
+  free(g_fmap);
+  free(g_map);
   printf("ERROR\n");
   keep_running = 0;
 }
@@ -76,6 +80,8 @@ int		main(int ac, char **av)
     {
       if (add_server(&data_server, &data_flags) == 84)
 	return (84);
+      g_fmap = data_flags.map;
+      g_map = data_server.map;
       while (keep_running)
 	{
 	  if (run_server(&data_server) == 84)
