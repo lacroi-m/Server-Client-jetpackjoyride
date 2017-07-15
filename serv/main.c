@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Fri Jul 14 16:18:49 2017 dorian turba
+** Last update Sat Jul 15 16:01:33 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -35,18 +35,30 @@ int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
 int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
 {
   int	fd;
-  struct protoent	*prot;
+  //  struct protoent	*prot;
   struct sockaddr_in	s_in;
-
-  if ((prot = getprotobyname("TCP")) == NULL)
-    return (84);
-  if ((fd = socket(AF_INET, SOCK_STREAM, prot->p_proto)) == -1)
+  //struct sockaddr_in    client;
+  //  if ((prot = getprotobyname("TCP")) == NULL)
+  //return (84);
+  //socklen_t sin_size = sizeof(struct sockaddr_in);
+  
+  if ((fd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) == -1)
     return (84);
   s_in.sin_family = AF_INET;
-  s_in.sin_port = htons(data_flags->port);
-  s_in.sin_addr.s_addr = INADDR_ANY;
+  s_in.sin_port = ntohs(4242);
+  s_in.sin_addr.s_addr = htonl(INADDR_ANY);
   if (bind(fd, (struct sockaddr*)&s_in, sizeof(s_in)) == -1)
-    close(fd);
+    {
+      printf("error BIND\n");
+      close(fd);
+      return (84);
+    }
+  if (listen(fd, data_serv->client_nbr) == -1)
+    {
+      printf("error Listen\n");
+      close(fd);
+      return (84);
+    }
   if (init_server(data_serv, fd, data_flags) == 84)
     return (84);
   return (0);
