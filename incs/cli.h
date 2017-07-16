@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:48:52 2017 Maxime Lacroix
-** Last update Thu Jul 13 14:02:08 2017 Maxime Lacroix
+** Last update Sun Jul 16 12:20:26 2017 Maxime Lacroix
 */
 
 #ifndef _CLI_H_
@@ -24,6 +24,15 @@ typedef struct	s_data
 {
   char		*ip;
   int		port;
+
+  char		*id;
+  int		x;
+  int		y;
+  int		score;
+  
+  int		width;
+  int		height;
+  char		*map;
 }		t_data;
 
 t_data        *p;

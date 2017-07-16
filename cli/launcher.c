@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Sat Jul 15 16:54:39 2017 Maxime Lacroix
+** Last update Sun Jul 16 18:02:03 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -44,22 +44,42 @@ void	init_struct(char *ip, int port)
 int	launcher(char **av)
 {
   char	*msg;
-
+  int	i;
+  i = 0;
   init_struct(get_ip(av), get_port(av));
   init_communication(p->port, p->ip);
-  printf("trying to send 'ID'\n");
-  if (sendit("ID", com->com_fd) == 0)
+  dprintf(com->com_fd, "ID\n");
+  printf("reciving id ?\n");
+  msg = receiveit(0, com->com_fd);
+  printf("id = %s\n", msg);
+  // add_to_id(msg);
+  printf("Sending MAP\n");
+  dprintf(com->com_fd, "MAP\n");
+  printf("receiving Map ?\n");
+  msg = receiveit(0, com->com_fd); 
+  printf("map = %s\n", msg);
+  //add_to_map(msg);
+  printf("sending ready\n");
+  //sendit("READY\n", com->com_fd);
+  while (i < 3)
     {
       msg = receiveit(0, com->com_fd);
-      //      msgb = cutreturn(msg)
-      printf("receiving '%s'\n", msg);
-      sendit("MAP", com->com_fd);
-      printf("trying to send 'MAP'\n");
-      if (msg != NULL)
-	free(msg);
+      printf("receiving %s\n", msg);
+      i++;
     }
-  else
-    printf("send 'ID' failed\n");
+  dprintf(com->com_fd, "READY\n");
+  while (1)
+    {
+      //      dprintf(com->com_fd, "READY\n");
+      printf("waitin to receive\n");
+      msg = receiveit(0, com->com_fd);
+      printf("receiving %s\n", msg);
+    }
+  if (msg != NULL)
+    free(msg);  
+  //  }
+  //x  else
+  
   free_struct();
   return (0);
 }

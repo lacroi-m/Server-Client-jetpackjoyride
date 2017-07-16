@@ -1,17 +1,20 @@
 /*
 ** connection.c for  in /home/lacroi_m/pisicne/jetpack2Tek3_2016/cli
-** 
+**
 ** Made by Maxime Lacroix
 ** Login   <lacroi_m@epitech.net>
-** 
+**
 ** Started on  Thu Jul 13 13:56:34 2017 Maxime Lacroix
-** Last update Sat Jul 15 17:07:24 2017 Maxime Lacroix
+** Last update Sun Jul 16 19:37:32 2017 Maxime Lacroix
 */
 
 #include "communication.h"
-
+#include <sys/types.h>
+#include <sys/socket.h>
 int canReceive(int com_fd)
 {
+  (void) com_fd;
+  /*
   fd_set rfds;
   struct timeval tv;
   int retval;
@@ -21,13 +24,13 @@ int canReceive(int com_fd)
   tv.tv_sec = 0;
   tv.tv_usec = 100;
   retval = select(com_fd + 1, &rfds, NULL, NULL, &tv);
-  
+
   if (retval == -1)
     exit_error();
   else if (retval)
     return (0);
   else
-    return (-1);
+  return (-1);*/
   return (-1);
 }
 
@@ -46,52 +49,40 @@ int	findreturn(char *str)
   return (i);
 }
 
-char	*cutreturn(char *str)
-{
-  int	pos;
-  char	*nstr;
-  
-  pos = -1;
-  while (str[++pos] && str[pos] != '\n');
-  nstr = malloc(sizeof(char) * pos + 1);
-  nstr = strncat(nstr, str, pos);
-  nstr[pos + 1] = '\0';
-
-  return (nstr);
-}
-
 char	*receiveit(int isBlock, int com_fd)
 {
   (void)isBlock;
   char	buf[256];
-  char	*tmp;
-  int	i;
-  int	j;
-
-  tmp = NULL;
-  i = 0;
-  bzero(&buf, 256);
-  j = i;
-  while (!canReceive(com_fd))
+  char *str;
+  fd_set	fds;
+  struct timeval tv;
+  tv.tv_sec = 0;
+  tv.tv_usec = 1;
+  memset(buf,0,256);
+  FD_ZERO(&fds);
+  FD_SET(0, &fds);
+  FD_SET(com_fd, &fds);
+  
+  printf("bfor select\n");
+  if (select(com_fd + 1, &fds, NULL, NULL, &tv) == -1)
+    exit_error();
+  printf("after select\n");
+  
+  
+  if (FD_ISSET(com_fd, &fds))
     {
-      bzero(&buf, 256);
-      i = i + read(com_fd, &buf, 255);
-      j = i - j;
-      if (tmp == NULL && i > 0)
+      if (recv(com_fd, &buf, 256, 0) == -1)
 	{
-	  tmp = malloc(sizeof(char) * i + 1);
-	  tmp = strncpy(tmp, buf, i);
-	}
-      else if (j > 0)
-	{
-	  tmp = realloc(tmp, sizeof(char) * j + 1);
-	  tmp = strncat(tmp, buf, j);
+	  printf("error read\n");
+	  exit_error();
 	}
     }
-  if (tmp == NULL)
-    return (NULL);
-  tmp[i] = '\0';
-  return (cutreturn(tmp));
+  if (buf != NULL)
+    {
+      str = malloc(sizeof(char) * my_strlen(buf) + 1);
+      str = strcpy(str, buf);
+    }
+  return (str);
 }
 
 int	sendit(char *msg, int com_fd)

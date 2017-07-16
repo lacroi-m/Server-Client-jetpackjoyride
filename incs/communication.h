@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 14:55:48 2017 Maxime Lacroix
-** Last update Sat Jul 15 11:24:31 2017 Maxime Lacroix
+** Last update Sun Jul 16 14:29:35 2017 Maxime Lacroix
 */
 
 #ifndef _COMMUNICATION_H_
@@ -20,7 +20,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-
+#include <sys/types.h>
 typedef struct	s_com
 {
   int		com_fd;
