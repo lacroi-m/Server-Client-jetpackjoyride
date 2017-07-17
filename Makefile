@@ -1,9 +1,9 @@
 
 NAME = J2T3
 
-CLI = client$(NAME)
+CLI = client
 
-SRV = server$(NAME)
+SRV = server
 
 CC  = gcc
 
@@ -23,16 +23,16 @@ all:     $(NAME)
 $(NAME): $(CLI) $(SRV)
 
 $(CLI):  $(OBJS_CLI)
-	 $(CC) -o $(CLI) $(OBJS_CLI) $(CFLAGS)
+	 $(CC) -o $(CLI)$(NAME) $(OBJS_CLI) $(CFLAGS)
 
 $(SRV):  $(OBJS_SRV)
-	 $(CC) -o $(SRV) $(OBJS_SRV) $(CFLAGS)
+	 $(CC) -o $(SRV)$(NAME) $(OBJS_SRV) $(CFLAGS)
 
 clean:
 	rm -f $(OBJS_CLI) $(OBJS_SRV)
 
 fclean:	clean
-	rm -f $(CLI) $(SRV)
+	rm -f $(CLI)$(NAME) $(SRV)$(NAME)
 
 re:	fclean all
 
