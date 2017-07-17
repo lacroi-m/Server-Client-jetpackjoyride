@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:48:52 2017 Maxime Lacroix
-** Last update Sun Jul 16 12:20:26 2017 Maxime Lacroix
+** Last update Mon Jul 17 16:30:15 2017 Maxime Lacroix
 */
 
 #ifndef _CLI_H_
@@ -25,25 +25,30 @@ typedef struct	s_data
   char		*ip;
   int		port;
 
-  char		*id;
+  int		id;
   int		x;
   int		y;
   int		score;
   
   int		width;
   int		height;
-  char		*map;
+  char		**map;
+  char		*crapmap;
 }		t_data;
 
-t_data        *p;
 
+char	**my_strd_to_wordtab(char *str, char *del);
+void	free_tab(char **tab);
 /*tools*/
-void	free_struct();
+void	free_struct(t_data *p);
 int     is_numeric(char *str);
-void    exit_error();
+void    exit_error(t_data *p);
 int     my_strlen(char *str);
 int     my_putstr(int fd, char *str, int rvalue);
 
+/*parse*/
+int	add_to_id(char *msg, t_data *p);
+int	add_to_map(char *msg, t_data *p);
 
 /*launcher*/
 int	launcher();

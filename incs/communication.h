@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 14:55:48 2017 Maxime Lacroix
-** Last update Sun Jul 16 14:29:35 2017 Maxime Lacroix
+** Last update Mon Jul 17 11:05:04 2017 Maxime Lacroix
 */
 
 #ifndef _COMMUNICATION_H_
@@ -30,7 +30,7 @@ t_com		*com;
 
 void		init_communication(unsigned short port, char *ip);
 char		*receiveit(int isBlock, int com_fd);
-int		sendit(char *msg, int com_fd);
+int		sendit(int com_fd, char *msg);
 
 void		exit_error();
 int		my_strlen(char *str);

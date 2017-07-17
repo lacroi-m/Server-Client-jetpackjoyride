@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Sun Jul 16 18:02:03 2017 Maxime Lacroix
+** Last update Mon Jul 17 23:41:05 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -33,53 +33,39 @@ int	get_port(char **av)
   return (0);
 }
 
-void	init_struct(char *ip, int port)
+void	init_struct(char *ip, int port, t_data *p)
 {
-  p = malloc(sizeof(t_data *) * 2);
   p->port = port;
+  //  printf("ip = %s size = %d\n", ip, my_strlen(ip));
   p->ip = malloc(sizeof(char) * (my_strlen(ip) + 1));
   p->ip = strcpy(p->ip, ip);
 }
 
 int	launcher(char **av)
 {
+  t_data  p;
   char	*msg;
-  int	i;
-  i = 0;
-  init_struct(get_ip(av), get_port(av));
-  init_communication(p->port, p->ip);
-  dprintf(com->com_fd, "ID\n");
-  printf("reciving id ?\n");
-  msg = receiveit(0, com->com_fd);
-  printf("id = %s\n", msg);
-  // add_to_id(msg);
-  printf("Sending MAP\n");
-  dprintf(com->com_fd, "MAP\n");
-  printf("receiving Map ?\n");
-  msg = receiveit(0, com->com_fd); 
-  printf("map = %s\n", msg);
-  //add_to_map(msg);
-  printf("sending ready\n");
-  //sendit("READY\n", com->com_fd);
-  while (i < 3)
+
+  init_struct(get_ip(av), get_port(av), &p);
+  init_communication(p.port, p.ip);
+  sendit(com->com_fd, "ID\n");
+  
+  msg = receiveit(1, com->com_fd);
+  add_to_id(msg, &p);
+  sendit(com->com_fd, "MAP\n");
+  msg = receiveit(1, com->com_fd);
+  //  printf("map = %s\n", msg);
+  add_to_map(msg, &p); 
+  sendit(com->com_fd, "READY\n");
+  while (42)
     {
-      msg = receiveit(0, com->com_fd);
-      printf("receiving %s\n", msg);
-      i++;
-    }
-  dprintf(com->com_fd, "READY\n");
-  while (1)
-    {
-      //      dprintf(com->com_fd, "READY\n");
-      printf("waitin to receive\n");
-      msg = receiveit(0, com->com_fd);
-      printf("receiving %s\n", msg);
+      //      printf("waitin to receive\n");
+      msg = receiveit(1, com->com_fd);
+      add_to_map(msg, &p);
+      //      printf("receiving %s\n", msg);
     }
   if (msg != NULL)
-    free(msg);  
-  //  }
-  //x  else
-  
-  free_struct();
+    free(msg);
+  free_struct(&p);
   return (0);
 }

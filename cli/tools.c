@@ -5,19 +5,16 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:32:24 2017 Maxime Lacroix
-** Last update Fri Jul 14 14:24:36 2017 Maxime Lacroix
+** Last update Mon Jul 17 16:23:07 2017 Maxime Lacroix
 */
 
 #include "cli.h"
 #include "communication.h"
 
-void	free_struct()
+void	free_struct(t_data *p)
 {
   if (p != NULL)
-    {
-      free(p->ip);
-      free(p);
-    }
+    free(p->ip);
   if (com != NULL)
     free(com);
   exit (0);
@@ -35,9 +32,9 @@ int	is_numeric(char *str)
   return (84);
 }
 
-void	exit_error()
+void	exit_error(t_data *p)
 {
-  //  free_struct();
+  free_struct(p);
   exit (my_putstr(2, "Erreur\n", 84));
 }
 
@@ -48,7 +45,7 @@ int	my_strlen(char *str)
   i = -1;
   if (str == NULL)
     return (0);
-  while (str[++i] != '\0' && str[i]);
+  while (str[++i] != '\0' && str[i] != '\n' && str[i]);
   return (i);
 }
 

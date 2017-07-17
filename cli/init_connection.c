@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Sat Jul 15 16:56:39 2017 Maxime Lacroix
-** Last update Sun Jul 16 17:33:13 2017 Maxime Lacroix
+** Last update Mon Jul 17 23:41:59 2017 Maxime Lacroix
 */
 
 #include "communication.h"
@@ -38,7 +38,7 @@ void    init_communication(unsigned short port, char *ip)
   bzero(&s_in, sizeof(struct sockaddr_in));
   s_in.sin_family = AF_INET;
   s_in.sin_port = htons(port);
-  printf("port = %d\n", port);
+  //  printf("port = %d\n", port);
   s_in.sin_addr.s_addr = inet_addr(hostname_to_ip(ip));
   if (connect(com->com_fd, (struct sockaddr*)&s_in, sizeof(s_in)) == -1)
     exit_error();
