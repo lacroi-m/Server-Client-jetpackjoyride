@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:52:59 2017 dorian turba
-** Last update Fri Jul 14 16:41:01 2017 dorian turba
+** Last update Mon Jul 17 11:41:45 2017 dorian turba
 */
 
 #include "serv.h"
@@ -16,6 +16,9 @@ void	init_client(t_client *client, int fd, t_data_server *data_server)
   client->fd = fd;
   client->pos_x = 0;
   client->pos_y = data_server->height / 2;
+  client->speed = 0;
+  client->id = data_server->connected_player;
+  printf("id ? : %d\n", client->id);
 }
 
 void	add_client(t_data_server *data_server, int s)
@@ -30,6 +33,11 @@ void	add_client(t_data_server *data_server, int s)
     {
       close(cs);
       exit(1);
+    }
+  if (++data_server->connected_player > 2)
+    {
+      (void)((data_server->connected_player -= 1) && (close(cs)));
+      return;
     }
   data_server->fd_type[cs] = FD_CLIENT;
   data_server->fct_read[cs] = client_read;

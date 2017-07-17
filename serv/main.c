@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Sat Jul 15 17:14:29 2017 dorian turba
+** Last update Mon Jul 17 11:21:57 2017 dorian turba
 */
 
 #include "serv.h"
@@ -33,6 +33,7 @@ int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
   if (fill_map(data_flags->map, data_serv) == 84)
     return (84);
   data_serv->data_flags = data_flags;
+  data_serv->connected_player = 0;
   return (0);
 }
 
@@ -88,9 +89,12 @@ int		main(int ac, char **av)
 	    return (84);
 	}
     }
-  free(data_flags.map);
-  free(data_server.map);
   if (keep_running == 0)
     return (84);
+  else
+    {
+      free(data_flags.map);
+      free(data_server.map);
+    }
   return (0);
 }

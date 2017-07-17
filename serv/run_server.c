@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:25:43 2017 dorian turba
-** Last update Sat Jul 15 16:57:37 2017 dorian turba
+** Last update Mon Jul 17 11:14:09 2017 dorian turba
 */
 
 #include "serv.h"
@@ -61,7 +61,7 @@ int	run_server(t_data_server *data_server)
   int		fd_max;
 
   fd_max = get_fd_max(data_server, &fd_read, &fd_write);
-  printf("fd max = %d\n", fd_max);
+  //printf("fd max = %d\n", fd_max);
   if (my_select(fd_max, &fd_read, &fd_write) == 84)
     return (84);
   my_isset(data_server, &fd_read, &fd_write);
