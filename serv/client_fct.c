@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 15:13:58 2017 dorian turba
-** Last update Mon Jul 17 11:24:01 2017 dorian turba
+** Last update Mon Jul 17 17:06:42 2017 dorian turba
 */
 
 #include "serv.h"
@@ -47,6 +47,8 @@ void client_read(t_data_server *data_server, int fd)
       printf("%d: Connection closed\n", fd);
       close(fd);
       data_server->fd_type[fd] = FD_FREE;
+      data_server->clients[fd].fd = 0;
+      data_server->clients[fd].is_ready = 0;
       data_server->connected_player -= 1;
     }
 }

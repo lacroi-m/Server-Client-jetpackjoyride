@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Mon Jul 17 15:28:41 2017 dorian turba
+** Last update Mon Jul 17 21:11:50 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <time.h>
 #include <unistd.h>
 #include <netdb.h>
 #include <signal.h>
@@ -67,5 +68,11 @@ void	id(t_data_server*, int, int);
 void	map(t_data_server*, int, int);
 void	ready(t_data_server*, int, int);
 void	fire(t_data_server*, int, int);
+int	all_ready(t_data_server*);
+void	start(t_data_server*);
+void	reload(t_data_server*);
+void	player_cmd(t_data_server*);
+int	nblen(int);
+
 
 #endif /*_SERV_H_*/

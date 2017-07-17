@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:34:46 2017 dorian turba
-** Last update Mon Jul 17 15:25:18 2017 dorian turba
+** Last update Mon Jul 17 18:50:29 2017 dorian turba
 */
 
 #ifndef INIT_SERVER_H
@@ -24,6 +24,7 @@ typedef struct	s_client
   int		fd;
   int		pos_x;
   int		pos_y;
+  int		coins;
   int		speed;
   int		id;
   int		is_ready;
@@ -40,7 +41,8 @@ typedef struct	s_data_server
   int			client_nbr;
   t_client		clients[MAX_FD];
   int			width;
-  int			height;  
+  int			height;
+  int			start;
   char			*map;
   struct s_data_flags	*data_flags;
   int			connected_player;

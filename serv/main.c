@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Mon Jul 17 15:58:16 2017 dorian turba
+** Last update Mon Jul 17 17:44:44 2017 dorian turba
 */
 
 #include "serv.h"
@@ -32,21 +32,19 @@ int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
   data_serv->fct_write[fd] = NULL;
   if (fill_map(data_flags->map, data_serv) == 84)
     return (84);
+  for (int i = 0; i < MAX_FD; ++i)
+    data_serv->clients[i].fd = 0;
   data_serv->data_flags = data_flags;
   data_serv->connected_player = 0;
+  data_serv->start = 0;
   return (0);
 }
 
 int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
 {
   int	fd;
-  //  struct protoent	*prot;
   struct sockaddr_in	s_in;
-  //struct sockaddr_in    client;
-  //  if ((prot = getprotobyname("TCP")) == NULL)
-  //return (84);
-  //socklen_t sin_size = sizeof(struct sockaddr_in);
-  
+
   if ((fd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) == -1)
     return (84);
   s_in.sin_family = AF_INET;
@@ -69,27 +67,56 @@ int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
   return (0);
 }
 
+int	game_cycle(t_data_server *data_server)
+{
+  clock_t	start_t;
+  clock_t	end_t;
+
+  start_t = clock();
+  while (keep_running)
+    {
+      if (run_server(data_server) == 84)
+	return (84);
+      if (((end_t = clock()) - start_t) > (CLOCKS_PER_SEC / 60))
+	{
+	  if (all_ready(data_server))
+	    {
+	      printf("ALL READY\n");
+	      if (data_server->start)
+		{
+		  printf("START");
+		  data_server->start = 1;
+		  start(data_server);
+		}
+	      else
+		{
+		  reload(data_server);
+		}
+	    }
+	  else
+	    {
+	      printf("FALSE\n");
+	    }
+	  printf("%ld\n", end_t - start_t);
+	  start_t = clock();
+	}
+    }
+  return (0);
+}
+
 int		main(int ac, char **av)
 {
   t_data_server	data_server;
   t_data_flags	data_flags;
-
   signal(SIGINT, int_handler);
   if (arg_check(ac, av, &data_flags) == 84)
     return (84);
-  else
-    {
-      if (add_server(&data_server, &data_flags) == 84)
-	return (84);
-      g_fmap = data_flags.map;
-      g_map = data_server.map;
-      while (keep_running)
-	{
-	  //printf("kek");
-	  if (run_server(&data_server) == 84)
-	    return (84);
-	}
-    }
+
+  if (add_server(&data_server, &data_flags) == 84)
+    return (84);
+  (void)((g_fmap = data_flags.map) && (g_map = data_server.map));
+  if (game_cycle(&data_server) == 84)
+    return (84);
   if (keep_running == 0)
     return (84);
   else

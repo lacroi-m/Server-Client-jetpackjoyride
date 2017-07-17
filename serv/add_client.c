@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:52:59 2017 dorian turba
-** Last update Mon Jul 17 15:29:00 2017 dorian turba
+** Last update Mon Jul 17 18:50:22 2017 dorian turba
 */
 
 #include "serv.h"
@@ -17,6 +17,7 @@ void	init_client(t_client *client, int fd, t_data_server *data_server)
   client->pos_x = 0;
   client->pos_y = data_server->height / 2;
   client->speed = 0;
+  client->coins = 0;
   client->is_ready = 0;
   client->jet_on_fire = 0;
   client->id = data_server->connected_player;
