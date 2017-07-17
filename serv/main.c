@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Mon Jul 17 11:21:57 2017 dorian turba
+** Last update Mon Jul 17 15:58:16 2017 dorian turba
 */
 
 #include "serv.h"
@@ -85,6 +85,7 @@ int		main(int ac, char **av)
       g_map = data_server.map;
       while (keep_running)
 	{
+	  //printf("kek");
 	  if (run_server(&data_server) == 84)
 	    return (84);
 	}
