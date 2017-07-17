@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:34:46 2017 dorian turba
-** Last update Mon Jul 17 11:42:03 2017 dorian turba
+** Last update Mon Jul 17 15:25:18 2017 dorian turba
 */
 
 #ifndef INIT_SERVER_H
@@ -26,6 +26,8 @@ typedef struct	s_client
   int		pos_y;
   int		speed;
   int		id;
+  int		is_ready;
+  int		jet_on_fire;
 }		t_client;
 
 typedef struct	s_data_server

@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Mon Jul 17 10:38:48 2017 dorian turba
+** Last update Mon Jul 17 15:28:41 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "err.h"
 #include "init_server.h"
+#include "manage_cmd.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -34,11 +35,11 @@ typedef struct	s_data_flags
   char		*map;
 }		t_data_flags;
 
-typedef struct	s_cmdptr
+/*typedef struct	s_cmdptr
 {
   char		*name;
-  void		(*fct_p)(t_data_server *data_server, int fd);
-}		t_cmdptr;
+  void		(*fct_p)(t_data_server *data_server, int fd, int fire);
+  }		t_cmdptr;*/
 
 int	error(char*);
 int	arg_check(int, char**, t_data_flags*);
@@ -62,9 +63,9 @@ int	my_countdword(char*, char*);
 char	**my_putstr_indtab(char*, char**, char*);
 char	**my_countdchar(char*, char**, char*);
 char	**my_strd_to_wordtab(char*, char*);
-void	id(t_data_server*, int);
-void	map(t_data_server*, int);
-void	ready(t_data_server*, int);
-void	fire(t_data_server*, int);
+void	id(t_data_server*, int, int);
+void	map(t_data_server*, int, int);
+void	ready(t_data_server*, int, int);
+void	fire(t_data_server*, int, int);
 
 #endif /*_SERV_H_*/

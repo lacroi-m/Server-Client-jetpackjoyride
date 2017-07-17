@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 12:39:44 2017 dorian turba
-** Last update Fri Jul 14 16:19:14 2017 dorian turba
+** Last update Mon Jul 17 14:58:52 2017 dorian turba
 */
 
 #include "serv.h"
@@ -40,9 +40,9 @@ int		fill_map(char *map_name, t_data_server *data_serv)
 			       (strlen(data_serv->map) + read + 1));
       data_serv->map = strcat(data_serv->map, line);
       ++i;
+      data_serv->width = read;
     }
-  data_serv->width = read;
-  data_serv->width = i;
+  data_serv->height = i;
   free(line);
   fclose(stream);
   return (0);
