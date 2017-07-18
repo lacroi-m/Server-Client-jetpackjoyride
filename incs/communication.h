@@ -5,12 +5,12 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 14:55:48 2017 Maxime Lacroix
-** Last update Mon Jul 17 11:05:04 2017 Maxime Lacroix
+** Last update Tue Jul 18 18:23:48 2017 Maxime Lacroix
 */
 
 #ifndef _COMMUNICATION_H_
  #define _COMMUNICATION_H_
-
+#include "cli.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,11 +28,8 @@ typedef struct	s_com
 
 t_com		*com;
 
-void		init_communication(unsigned short port, char *ip);
-char		*receiveit(int isBlock, int com_fd);
+void		init_communication(unsigned short port, char *ip, t_data *p);
+char		*receiveit(int isBlock, int com_fd, t_data *p);
 int		sendit(int com_fd, char *msg);
-
-void		exit_error();
-int		my_strlen(char *str);
 
 #endif /*_COMMUNICATION_H_*/

@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Mon Jul 17 23:41:05 2017 Maxime Lacroix
+** Last update Tue Jul 18 18:47:25 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -36,9 +36,9 @@ int	get_port(char **av)
 void	init_struct(char *ip, int port, t_data *p)
 {
   p->port = port;
-  //  printf("ip = %s size = %d\n", ip, my_strlen(ip));
   p->ip = malloc(sizeof(char) * (my_strlen(ip) + 1));
   p->ip = strcpy(p->ip, ip);
+  p->map = NULL;
 }
 
 int	launcher(char **av)
@@ -47,22 +47,23 @@ int	launcher(char **av)
   char	*msg;
 
   init_struct(get_ip(av), get_port(av), &p);
-  init_communication(p.port, p.ip);
+  init_communication(p.port, p.ip, &p);
   sendit(com->com_fd, "ID\n");
-  
-  msg = receiveit(1, com->com_fd);
+  msg = receiveit(1, com->com_fd, &p);
   add_to_id(msg, &p);
   sendit(com->com_fd, "MAP\n");
-  msg = receiveit(1, com->com_fd);
-  //  printf("map = %s\n", msg);
-  add_to_map(msg, &p); 
-  sendit(com->com_fd, "READY\n");
+  msg = receiveit(1, com->com_fd, &p);
+  add_to_map(msg, &p);
   while (42)
     {
-      //      printf("waitin to receive\n");
-      msg = receiveit(1, com->com_fd);
-      add_to_map(msg, &p);
-      //      printf("receiving %s\n", msg);
+      msg = receiveit(0, com->com_fd, &p);
+      if (msg != NULL)
+	add_to_map(msg, &p);
+      else
+	{
+	  sendit(com->com_fd, "READY\n");
+	  break;
+	}
     }
   if (msg != NULL)
     free(msg);

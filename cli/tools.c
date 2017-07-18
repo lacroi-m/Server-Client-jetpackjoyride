@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:32:24 2017 Maxime Lacroix
-** Last update Mon Jul 17 16:23:07 2017 Maxime Lacroix
+** Last update Tue Jul 18 18:47:33 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -14,7 +14,12 @@
 void	free_struct(t_data *p)
 {
   if (p != NULL)
-    free(p->ip);
+    {
+      if (p->ip != NULL)
+	free(p->ip);
+      if (p->map != NULL)
+	free_tab(p->map);
+    }
   if (com != NULL)
     free(com);
   exit (0);
@@ -51,6 +56,6 @@ int	my_strlen(char *str)
 
 int	my_putstr(int fd, char *str, int rvalue)
 {
-  write(fd, str, my_strlen(str));
+  write(fd, str, my_strlen(str) + 1);
   return (rvalue);
 }

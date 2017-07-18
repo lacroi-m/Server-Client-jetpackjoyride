@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:48:52 2017 Maxime Lacroix
-** Last update Mon Jul 17 16:30:15 2017 Maxime Lacroix
+** Last update Tue Jul 18 17:59:11 2017 Maxime Lacroix
 */
 
 #ifndef _CLI_H_
@@ -33,7 +33,6 @@ typedef struct	s_data
   int		width;
   int		height;
   char		**map;
-  char		*crapmap;
 }		t_data;
 
 
