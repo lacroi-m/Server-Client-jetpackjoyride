@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:32:24 2017 Maxime Lacroix
-** Last update Tue Jul 18 18:47:33 2017 Maxime Lacroix
+** Last update Tue Jul 18 18:59:08 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -22,7 +22,6 @@ void	free_struct(t_data *p)
     }
   if (com != NULL)
     free(com);
-  exit (0);
 }
 
 int	is_numeric(char *str)
