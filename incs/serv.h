@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Mon Jul 17 21:11:50 2017 dorian turba
+** Last update Tue Jul 18 22:30:18 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -26,8 +26,13 @@
 #include <netdb.h>
 #include <signal.h>
 #include <ctype.h>
+#include <math.h>
 
 # define TOTAL_CMD 4
+
+# define FYN2 for (int i = 0; i < MAX_FD; ++i)
+# define FYN3 for (int j = 0; j < MAX_FD; ++j)
+
 
 typedef struct	s_data_flags
 {
@@ -70,9 +75,11 @@ void	ready(t_data_server*, int, int);
 void	fire(t_data_server*, int, int);
 int	all_ready(t_data_server*);
 void	start(t_data_server*);
-void	reload(t_data_server*);
+void	reload(t_data_server*, int, int, float, int);
 void	player_cmd(t_data_server*);
 int	nblen(int);
-
-
+void	wall(t_data_server*, int);
+void	tell_winner(t_data_server*, int, int, int);
+void	top_floor(t_data_server*, int);
+  
 #endif /*_SERV_H_*/

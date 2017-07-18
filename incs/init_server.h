@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 10:34:46 2017 dorian turba
-** Last update Mon Jul 17 18:50:29 2017 dorian turba
+** Last update Tue Jul 18 18:37:27 2017 dorian turba
 */
 
 #ifndef INIT_SERVER_H
@@ -22,10 +22,10 @@ typedef struct	s_client
 {
   char		*msg;
   int		fd;
-  int		pos_x;
-  int		pos_y;
+  float		pos_x;
+  float		pos_y;
   int		coins;
-  int		speed;
+  float		speed;
   int		id;
   int		is_ready;
   int		jet_on_fire;

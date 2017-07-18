@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Sun Jul 16 14:27:45 2017 dorian turba
-** Last update Mon Jul 17 15:24:41 2017 dorian turba
+** Last update Tue Jul 18 23:07:37 2017 dorian turba
 */
 
 #include "serv.h"
@@ -23,10 +23,13 @@ void	map(t_data_server *data_server, int fd, int fire)
   (void)fire;
   data_server->clients[fd].msg =
     malloc(sizeof(char) * (50 + strlen(data_server->map)));
+  //  printf("DEBUG1\n");
   sprintf(data_server->clients[fd].msg, "MAP %d %d %s",
 	  data_server->width, data_server->height,
 	  data_server->map);
-  printf("send : %s", data_server->clients[fd].msg);
+  //  printf("DEBUG2\n");
+  //  printf("send : %s", data_server->clients[fd].msg);
+  //  printf("DEBUG3\n");
 }
 
 void	ready(t_data_server *data_server, int fd, int fire)

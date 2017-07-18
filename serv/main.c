@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Tue Jul 18 14:46:16 2017 dorian turba
+** Last update Tue Jul 18 21:48:52 2017 dorian turba
 */
 
 #include "serv.h"
@@ -30,7 +30,7 @@ void	int_handler(int dummy)
 
 int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
 {
-  for (int i = 0; i < MAX_FD; ++i)
+  FYN2
     data_serv->fd_type[i] = FD_FREE;
   data_serv->fd_type[fd] = FD_SERVER;
   data_serv->fd_server = fd;
@@ -97,7 +97,7 @@ int	game_cycle(t_data_server *data_server)
 		  start(data_server);
 		}
 	      else
-		  reload(data_server);
+		reload(data_server, 0, 0, 0, 0);
 	    }
 	  start_t = clock();
 	}

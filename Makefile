@@ -7,7 +7,7 @@ SRV = server
 
 CC  = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I./incs/ -g3
+CFLAGS = -Wall -Wextra -Werror -I./incs/ -g3 -lm
 
 CLISRCS	 = $(foreach dir,$(shell find cli -type d),$(wildcard $(dir)/*.c))
 
