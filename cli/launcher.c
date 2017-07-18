@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 11:34:43 2017 Maxime Lacroix
-** Last update Tue Jul 18 18:55:39 2017 Maxime Lacroix
+** Last update Tue Jul 18 20:50:21 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -67,6 +67,7 @@ int	launcher(char **av)
     }
   if (msg != NULL)
     free(msg);
+  game(&p);
   free_struct(&p);
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:13 2017 Maxime Lacroix
-** Last update Thu Jul 13 12:21:16 2017 Maxime Lacroix
+** Last update Tue Jul 18 20:26:12 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -41,9 +41,9 @@ int	check_args(char **av)
 int	main(int ac, char **av)
 {
   if (ac < 5 || ac > 5)
-    return (my_putstr(2, "Arguments invalide\n", 84));
+    return (my_putstr(2, "Arguments invalides\n", 84));
   else if (check_args(av) == 84)
-    return (my_putstr(2, "Arguments invalide\n", 84));
+    return (my_putstr(2, "Arguments invalides\n", 84));
   else
     return (launcher(av));
   return (0);

@@ -23,7 +23,7 @@ all:     $(NAME)
 $(NAME): $(CLI) $(SRV)
 
 $(CLI):  $(OBJS_CLI)
-	 $(CC) -o $(CLI)$(NAME) $(OBJS_CLI) $(CFLAGS)
+	 $(CC) -o $(CLI)$(NAME) $(OBJS_CLI) $(CFLAGS) -pthread -lpthread -lSDL
 
 $(SRV):  $(OBJS_SRV)
 	 $(CC) -o $(SRV)$(NAME) $(OBJS_SRV) $(CFLAGS)
