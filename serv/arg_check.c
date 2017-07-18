@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 16:34:14 2017 dorian turba
-** Last update Sat Jul 15 16:52:52 2017 dorian turba
+** Last update Tue Jul 18 10:13:36 2017 dorian turba
 */
 
 #include "serv.h"
@@ -14,7 +14,7 @@ int	is_num(char *str)
 {
   for (unsigned int i = 0; i < strlen(str); ++i)
     {
-      if (!isdigit(str[i]))
+      if (!(isdigit(str[i]) || str[i] == '-'))
 	return (84);
     }
   return (0);

@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 12:39:44 2017 dorian turba
-** Last update Mon Jul 17 14:58:52 2017 dorian turba
+** Last update Tue Jul 18 10:12:52 2017 dorian turba
 */
 
 #include "serv.h"
@@ -18,31 +18,29 @@ int	check_map(char *map)
   return (0);
 }
 
-int		fill_map(char *map_name, t_data_server *data_serv)
+int		fill_map(char *map_name, t_data_server *d_s)
 {
   char		*line;
   size_t	len;
   FILE		*stream;
-  ssize_t	read;
+  ssize_t	r;
   int		i;
 
   line = NULL;
   len = i = 0;
   stream = fopen(map_name, "r");
-  data_serv->map = strdup("");
+  d_s->map = strdup("");
   if (stream == NULL)
     return (error(MAP_INV));
-  while ((read = getline(&line, &len, stream)) != -1)
+  while ((r = getline(&line, &len, stream)) != -1)
     {
       if (check_map(line) == 84)
 	return (84);
-      data_serv->map = realloc(data_serv->map, sizeof(char) *
-			       (strlen(data_serv->map) + read + 1));
-      data_serv->map = strcat(data_serv->map, line);
-      ++i;
-      data_serv->width = read;
+      d_s->map = realloc(d_s->map, sizeof(char) * (strlen(d_s->map) + r + 1));
+      d_s->map = strcat(d_s->map, my_strd_to_wordtab(line, "\n")[0]);
+      (void)((d_s->width = r) && (++i));
     }
-  data_serv->height = i;
+  d_s->height = i;
   free(line);
   fclose(stream);
   return (0);
