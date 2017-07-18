@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Tue Jul 18 22:29:51 2017 dorian turba
+** Last update Wed Jul 19 01:19:24 2017 dorian turba
 */
 
 #include "serv.h"
@@ -43,7 +43,8 @@ void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
       {
 	(void)((x = &d_s->clients[i].pos_x) && (y = &d_s->clients[i].pos_y));
 	printf("speed : %f\n", d_s->clients[i].speed);
-	d_s->clients[i].speed += sqrt(2 * grav * d_s->height) / 60;
+	d_s->clients[i].speed += sqrt(2 * grav * d_s->height) / 120
+	  * d_s->clients[i].jet_on_fire;
 	(void)((*y += d_s->clients[i].speed) && (*x += 5.f / 60.f));
 	if (*x + 1 > d_s->width)
 	  {
@@ -58,3 +59,18 @@ void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
   if (win > 0)
     tell_winner(d_s, win, c1, c2);
 }
+
+/* void	coins(t_data_server d_s, int fd)
+{
+  float x;
+  float y;
+
+  x = d_s->clients[fd].pos_x;
+  y = d_s->clients[fd].pos_y;
+  for (int i = 0; i < 4; ++i)
+    {
+      if (d_s->map[(int)x * (i == 1 || i == 2) +
+		   d_s->width * ((int)y * (i == 2 || i == 3))] == 'c')
+	tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+    }  
+    }*/

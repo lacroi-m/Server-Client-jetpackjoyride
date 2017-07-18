@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Tue Jul 18 22:39:43 2017 dorian turba
+** Last update Wed Jul 19 01:17:06 2017 dorian turba
 */
 
 #include "serv.h"
@@ -46,7 +46,7 @@ void	player_cmd(t_data_server *d_s)
 	if (d_s->clients[i].msg != NULL)
 	  free(d_s->clients[i].msg);
 	d_s->clients[i].msg = strdup(tmp);
-	//printf("Test : '%s'\n", d_s->clients[i].msg);
+	printf("'%s'\n", d_s->clients[i].msg);
       }
   free(tmp);
   free(tmp2);
@@ -59,12 +59,14 @@ void	wall(t_data_server *d_s, int fd)
 
   x = d_s->clients[fd].pos_x;
   y = d_s->clients[fd].pos_y;
-  for (int i = 0; i < 4; ++i)
-    {
-      if (d_s->map[(int)x * (i == 1 || i == 2) +
-		   d_s->width * ((int)y * (i == 2 || i == 3))] == 'e')
-	printf("MURMURMURMURMURMURMURMURMURMURMURMURMURMURMUR\n");
-    }
+  if (d_s->map[(int)x + d_s->width * (int)y] == 'e')
+    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (d_s->map[(int)x + 1 + d_s->width * (int)y] == 'e')
+    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (d_s->map[(int)x + d_s->width * ((int)y + 1)] == 'e')
+    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (d_s->map[(int)x + 1 + d_s->width * ((int)y + 1)] == 'e')
+    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
 }
 
 void	tell_winner(t_data_server *d_s, int result, int c1, int c2)
@@ -94,7 +96,13 @@ void	top_floor(t_data_server *d_s, int fd)
 
   y = d_s->clients[fd].pos_y;
   if (y < 0)
-    d_s->clients[fd].pos_y = 0;
-  if (y > d_s->height)
-    d_s->clients[fd].pos_y = d_s->height -1;
+    {
+      d_s->clients[fd].pos_y = 0;
+      d_s->clients[fd].speed = 0;
+    }
+  if (y + 1 > d_s->height)
+    {
+      d_s->clients[fd].pos_y = d_s->height -1;
+      d_s->clients[fd].speed = 0;
+    }
 }

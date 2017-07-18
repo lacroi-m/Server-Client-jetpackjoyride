@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Sun Jul 16 14:27:45 2017 dorian turba
-** Last update Tue Jul 18 23:07:37 2017 dorian turba
+** Last update Wed Jul 19 00:42:36 2017 dorian turba
 */
 
 #include "serv.h"
@@ -40,5 +40,8 @@ void	ready(t_data_server *data_server, int fd, int fire)
 
 void	fire(t_data_server *data_server, int fd, int fire)
 {
-  data_server->clients[fd].jet_on_fire = fire;
+  if (fire)
+    data_server->clients[fd].jet_on_fire = 1;
+  else
+    data_server->clients[fd].jet_on_fire = -1;
 }
