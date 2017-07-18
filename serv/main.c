@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Mon Jul 17 17:44:44 2017 dorian turba
+** Last update Tue Jul 18 10:51:33 2017 dorian turba
 */
 
 #include "serv.h"
@@ -13,10 +13,15 @@
 static volatile int keep_running = 1;
 char	*g_fmap;
 char	*g_map;
+t_data_server	*g_d_s;
 
 void	int_handler(int dummy)
 {
   (void)dummy;
+  for (int i = 0; i < MAX_FD; ++i)
+    if (g_d_s->clients[i].fd)
+      close(g_d_s->clients[i].fd);
+  close(g_d_s->fd_server);
   free(g_fmap);
   free(g_map);
   printf("ERROR\n");
@@ -108,13 +113,14 @@ int		main(int ac, char **av)
 {
   t_data_server	data_server;
   t_data_flags	data_flags;
+
   signal(SIGINT, int_handler);
   if (arg_check(ac, av, &data_flags) == 84)
     return (84);
-
   if (add_server(&data_server, &data_flags) == 84)
     return (84);
   (void)((g_fmap = data_flags.map) && (g_map = data_server.map));
+  g_d_s = &data_server;
   if (game_cycle(&data_server) == 84)
     return (84);
   if (keep_running == 0)
