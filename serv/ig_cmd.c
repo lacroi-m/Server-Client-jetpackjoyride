@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Mon Jul 17 21:36:35 2017 dorian turba
+** Last update Tue Jul 18 14:06:37 2017 dorian turba
 */
 
 #include "serv.h"
@@ -36,6 +36,7 @@ void	player_cmd(t_data_server *d_s)
 	for (int j = 0; j < MAX_FD; ++j)
 	  if (d_s->clients[j].fd)
 	    {
+	      memset(tmp2, 0, sizeof(char) * strlen(tmp2));
 	      printf("PLAYER %d %d %d %d\n", d_s->clients[j].id,
 		     d_s->clients[j].pos_x, d_s->clients[j].pos_y,
 		     d_s->clients[j].coins);
@@ -44,7 +45,10 @@ void	player_cmd(t_data_server *d_s)
 		      d_s->clients[j].coins);
 	      strcat(tmp, tmp2);
 	    }
+	if (d_s->clients[i].msg != NULL)
+	  free(d_s->clients[i].msg);
 	d_s->clients[i].msg = strdup(tmp);
+	printf("Test : '%s'\n", d_s->clients[i].msg);
       }
   free(tmp);
   free(tmp2);

@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Tue Jul 18 11:32:49 2017 dorian turba
+** Last update Tue Jul 18 14:46:16 2017 dorian turba
 */
 
 #include "serv.h"
@@ -30,6 +30,8 @@ void	int_handler(int dummy)
 
 int	init_server(t_data_server *data_serv, int fd, t_data_flags *data_flags)
 {
+  for (int i = 0; i < MAX_FD; ++i)
+    data_serv->fd_type[i] = FD_FREE;
   data_serv->fd_type[fd] = FD_SERVER;
   data_serv->fd_server = fd;
   data_serv->client_nbr = 2;
@@ -57,20 +59,21 @@ int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
   s_in.sin_port = ntohs(data_flags->port);
   s_in.sin_addr.s_addr = htonl(INADDR_ANY);
   setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &nbr, sizeof(int));  
+  if (init_server(data_serv, fd, data_flags) == 84)
+    return (84);
   if (bind(fd, (struct sockaddr*)&s_in, sizeof(s_in)) == -1)
     {
       printf("error BIND\n");
       close(fd);
       return (84);
     }
+  //  printf("fd = %d  &&&  client nbr %d\n", fd, data_serv->client_nbr);
   if (listen(fd, data_serv->client_nbr) == -1)
     {
       printf("error Listen\n");
       close(fd);
       return (84);
     }
-  if (init_server(data_serv, fd, data_flags) == 84)
-    return (84);
   return (0);
 }
 
@@ -88,7 +91,7 @@ int	game_cycle(t_data_server *data_server)
 	{
 	  if (all_ready(data_server))
 	    {
-	      if (data_server->start)
+	      if (!data_server->start)
 		{
 		  data_server->start = 1;
 		  start(data_server);

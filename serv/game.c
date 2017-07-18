@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Mon Jul 17 20:44:37 2017 dorian turba
+** Last update Tue Jul 18 14:22:05 2017 dorian turba
 */
 
 #include "serv.h"
@@ -34,8 +34,9 @@ void	start(t_data_server *data_server)
 void	reload(t_data_server *data_server)
 {
   player_cmd(data_server);
-  for (int i = 0; i < MAX_FD; ++i)
+  /*  for (int i = 0; i < MAX_FD; ++i)
     if (data_server->clients[i].fd)
       {
       }
+  */
 }
