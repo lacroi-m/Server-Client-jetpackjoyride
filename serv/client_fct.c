@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 15:13:58 2017 dorian turba
-** Last update Mon Jul 17 17:06:42 2017 dorian turba
+** Last update Tue Jul 18 11:31:22 2017 dorian turba
 */
 
 #include "serv.h"
@@ -24,7 +24,7 @@ void	client_write(t_data_server *data_server, int fd)
 {
   if (data_server->clients[fd].msg)
     {
-      dprintf(fd, "%s\r\n", data_server->clients[fd].msg);
+      dprintf(fd, "%s\n", data_server->clients[fd].msg);
       free(data_server->clients[fd].msg);
     }
   data_server->clients[fd].msg = NULL;

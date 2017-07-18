@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Tue Jul 18 11:03:07 2017 dorian turba
+** Last update Tue Jul 18 11:32:49 2017 dorian turba
 */
 
 #include "serv.h"
@@ -88,23 +88,14 @@ int	game_cycle(t_data_server *data_server)
 	{
 	  if (all_ready(data_server))
 	    {
-	      printf("ALL READY\n");
 	      if (data_server->start)
 		{
-		  printf("START");
 		  data_server->start = 1;
 		  start(data_server);
 		}
 	      else
-		{
 		  reload(data_server);
-		}
 	    }
-	  else
-	    {
-	      printf("FALSE\n");
-	    }
-	  printf("%ld\n", end_t - start_t);
 	  start_t = clock();
 	}
     }
