@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:52:59 2017 dorian turba
-** Last update Mon Jul 17 18:50:22 2017 dorian turba
+** Last update Tue Jul 18 11:23:49 2017 dorian turba
 */
 
 #include "serv.h"
@@ -47,6 +47,5 @@ void	add_client(t_data_server *data_server, int s)
   data_server->fct_write[cs] = client_write;
   client = &(data_server->clients[cs]);
   init_client(client, cs, data_server);
-  make_msg("WELCOME", &(data_server->clients[cs]));
   printf("Client : %d\n", data_server->clients[cs].fd);
 }
