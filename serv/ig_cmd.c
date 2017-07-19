@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Wed Jul 19 15:42:11 2017 dorian turba
+** Last update Wed Jul 19 15:51:31 2017 dorian turba
 */
 
 #include "serv.h"
@@ -64,7 +64,7 @@ void	wall(t_data_server *d_s, t_game_data *g_d)
       if (d_s->clients[i].fd)
 	{
 	  x = d_s->clients[i].pos_x;
-	  y = d_s->clients[i].pos_y;
+	  y = -((d_s->clients[i].pos_y) - d_s->height);
 	  if (x <= d_s->width && y <= d_s->height)
 	    if (d_s->map[(int)x + d_s->width * ((int)y)] == 'e')
 	      tmp = 1;
