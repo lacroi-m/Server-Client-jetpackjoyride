@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:48:52 2017 Maxime Lacroix
-** Last update Tue Jul 18 20:33:01 2017 Maxime Lacroix
+** Last update Wed Jul 19 23:22:13 2017 Maxime Lacroix
 */
 
 #ifndef _CLI_H_
@@ -14,11 +14,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <unistd.h>
+
+#include <pthread.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL/SDL.h>
+
 
 typedef struct	s_data
 {

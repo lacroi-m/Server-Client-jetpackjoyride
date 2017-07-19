@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 18:28:10 2017 dorian turba
+** Last update Wed Jul 19 23:09:59 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -71,23 +71,7 @@ void	reload(t_data_server *d_s)
 	  }
 	top_floor(d_s, i);
       }
-  //coins(d_s, &g_d);
   wall(d_s, &g_d);
   if (g_d.win > 0)
     tell_winner(d_s, g_d.win, g_d.c1, g_d.c2);
 }
-
-/* void	coins(t_data_server d_s, int fd)
-{
-  float x;
-  float y;
-
-  x = d_s->clients[fd].pos_x;
-  y = d_s->clients[fd].pos_y;
-  for (int i = 0; i < 4; ++i)
-    {
-      if (d_s->map[(int)x * (i == 1 || i == 2) +
-		   d_s->width * ((int)y * (i == 2 || i == 3))] == 'c')
-	tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-    }  
-    }*/

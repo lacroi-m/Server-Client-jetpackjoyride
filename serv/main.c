@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 08:06:45 2017 Maxime Lacroix
-** Last update Wed Jul 19 18:23:22 2017 dorian turba
+** Last update Wed Jul 19 23:14:21 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -52,13 +52,13 @@ int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
   int	fd;
   struct sockaddr_in	s_in;
   int			nbr;
-  
+
   if ((nbr = 1) && (fd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) == -1)
     return (84);
   s_in.sin_family = AF_INET;
   s_in.sin_port = ntohs(data_flags->port);
   s_in.sin_addr.s_addr = htonl(INADDR_ANY);
-  setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &nbr, sizeof(int));  
+  setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &nbr, sizeof(int));
   if (init_server(data_serv, fd, data_flags) == 84)
     return (84);
   if (bind(fd, (struct sockaddr*)&s_in, sizeof(s_in)) == -1)
@@ -67,7 +67,6 @@ int		add_server(t_data_server *data_serv, t_data_flags *data_flags)
       close(fd);
       return (84);
     }
-  //  printf("fd = %d  &&&  client nbr %d\n", fd, data_serv->client_nbr);
   if (listen(fd, data_serv->client_nbr) == -1)
     {
       printf("error Listen\n");

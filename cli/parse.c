@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Mon Jul 17 10:36:09 2017 Maxime Lacroix
-** Last update Tue Jul 18 17:56:51 2017 Maxime Lacroix
+** Last update Wed Jul 19 23:02:42 2017 Maxime Lacroix
 */
 
 #include "cli.h"
@@ -27,7 +27,7 @@ int	is_map(char *str)
 {
   int	i;
   int	j;
-  
+
   i = 0;
   j = 0;
   if (str == NULL)
@@ -90,8 +90,6 @@ int	add_to_map(char *msg, t_data *p)
 	  p->map[k] = strncpy(p->map[k], tab[j], p->x);
 	}
     }
-  //  else if (is_map(tab[0]))
-  //add_circular(tab, p);
   free_tab(tab);
   free(msg);
   return (0);

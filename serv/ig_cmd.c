@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Wed Jul 19 18:28:02 2017 dorian turba
+** Last update Wed Jul 19 23:12:38 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -27,7 +27,7 @@ void	player_cmd(t_data_server *d_s)
 {
   char	*tmp;
   char	*tmp2;
-  
+
   FYN2
     if (d_s->clients[i].fd)
       {

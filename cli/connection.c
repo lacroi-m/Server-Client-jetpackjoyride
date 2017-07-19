@@ -5,12 +5,9 @@
 ** Login   <lacroi_m@epitech.net>
 **
 ** Started on  Thu Jul 13 13:56:34 2017 Maxime Lacroix
-** Last update Tue Jul 18 18:23:38 2017 Maxime Lacroix
+** Last update Wed Jul 19 22:59:45 2017 Maxime Lacroix
 */
-
 #include "communication.h"
-#include <sys/types.h>
-#include <sys/socket.h>
 
 int	findreturn(char *str)
 {
@@ -27,7 +24,8 @@ int	findreturn(char *str)
   return (i);
 }
 
-void	my_select(int isBlock, int com_fd, fd_set *fds, struct timeval tv, t_data *p)
+void	my_select(int isBlock, int com_fd,
+		  fd_set *fds, struct timeval tv, t_data *p)
 {
   if (isBlock == 0)
     if (select(com_fd + 1, fds, NULL, NULL, &tv) == -1)
@@ -68,7 +66,7 @@ char	*receiveit(int isBlock, int com_fd, t_data *p)
 int	sendit(int com_fd, char *msg)
 {
   int	i;
-  
+
   if ((i = dprintf(com_fd, msg)) == -1)
     return (-1);
   return (i);

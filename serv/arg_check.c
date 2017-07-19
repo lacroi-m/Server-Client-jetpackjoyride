@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Thu Jul 13 16:34:14 2017 dorian turba
-** Last update Tue Jul 18 10:13:36 2017 dorian turba
+** Last update Wed Jul 19 23:09:18 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -35,7 +35,8 @@ int	arg_check(int ac, char **av, t_data_flags *data_flags)
 	    if (av[i + 1] && (data_flags->port = atoi(av[++i])) != 0)
 	      checker += 1;
 	  if (strcmp(av[i], "-g") == 0)
-	    if (av[i + 1] && is_num(av[i + 1]) != 84 && (data_flags->grav = atoi(av[++i])))
+	    if (av[i + 1] && is_num(av[i + 1]) != 84
+		&& (data_flags->grav = atoi(av[++i])))
 	      checker += 10;
 	  if (strcmp(av[i], "-m") == 0)
 	    if (av[i + 1] && (data_flags->map = strdup(av[++i])))

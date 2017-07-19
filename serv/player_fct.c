@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Sun Jul 16 14:27:45 2017 dorian turba
-** Last update Wed Jul 19 18:21:35 2017 dorian turba
+** Last update Wed Jul 19 23:14:50 2017 Maxime Lacroix
 */
 
 #include "serv.h"
@@ -26,7 +26,7 @@ void	id(t_data_server *data_server, int fd, int fire)
 void	map(t_data_server *data_server, int fd, int fire)
 {
   char	*tmp;
-  
+
   (void)fire;
   tmp = malloc(sizeof(char) * (50 + strlen(data_server->map)));
   data_server->clients[fd].msg =

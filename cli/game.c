@@ -5,33 +5,26 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Tue Jul 18 20:33:25 2017 Maxime Lacroix
-** Last update Wed Jul 19 01:11:50 2017 Maxime Lacroix
+** Last update Wed Jul 19 23:22:12 2017 Maxime Lacroix
 */
 
 #include "cli.h"
 #include "communication.h"
-#include <pthread.h>
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <SDL/SDL.h>
-
-pthread_cond_t condition = PTHREAD_COND_INITIALIZER; /* Création de la condition */
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; /* Création du mutex */
+pthread_cond_t condition = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void	*talking(t_data *p)
 {
+  (void)p;
   pthread_mutex_lock(&mutex);
-  printf("thread 1\n");
-  for(int x = 0; p->map[x]; x++)
-    printf("%s\n", p->map[x]);
-  pthread_mutex_unlock(&mutex); /* On déverrouille le mutex */
+  pthread_mutex_unlock(&mutex);
   pthread_exit(NULL);
   return (NULL);
 }
 
-
-void	*loop(SDL_Surface *ecran, SDL_Surface *coin, SDL_Surface *wall ,SDL_Surface *fplayer, SDL_Surface *splayer, t_data *p)
+void	*loop(SDL_Surface *ecran, SDL_Surface *coin, SDL_Surface *wall,
+	      SDL_Surface *fplayer, SDL_Surface *splayer, t_data *p)
 {
   int	x;
   int	y;
@@ -41,9 +34,9 @@ void	*loop(SDL_Surface *ecran, SDL_Surface *coin, SDL_Surface *wall ,SDL_Surface
   int continuer = 1;
   (void)fplayer;
   (void)splayer;
+
   while (continuer)
     {
-      //      SDL_FillRect(ecran, NULL, 0x000000); // SETTING SCREEN BLACK
       SDL_Flip(ecran);
       SDL_WaitEvent(&event);
       switch(event.type)
@@ -63,7 +56,6 @@ void	*loop(SDL_Surface *ecran, SDL_Surface *coin, SDL_Surface *wall ,SDL_Surface
 	      exit(0);
 	  }
 	}
-      
       y = -1;
       while (++y < p->y)
 	{
@@ -86,33 +78,31 @@ void	*loop(SDL_Surface *ecran, SDL_Surface *coin, SDL_Surface *wall ,SDL_Surface
 	  SDL_Flip(ecran);
 	}
     }
-  pthread_mutex_unlock(&mutex); /* On déverrouille le mutex */
-  
+  pthread_mutex_unlock(&mutex);
   SDL_FreeSurface(coin);
   SDL_FreeSurface(wall);
   SDL_FreeSurface(ecran);
-  SDL_Quit(); // Arrêt de la SDL (libération de la mémoire).
+  SDL_Quit();
   pthread_exit(NULL);
   return (NULL);
 }
 
-
 void	*talking2(t_data *p)
 {
-  SDL_Surface *ecran = NULL; // Le pointeur qui va stocker la surface de l'écran
+  SDL_Surface *ecran = NULL;
   SDL_Surface *coin = NULL;
   SDL_Surface *wall = NULL;
-  SDL_Surface *fplayer = NULL; // Le pointeur qui va stocker la surface de l'écran
-  SDL_Surface *splayer = NULL; // Le pointeur qui va stocker la surface de l'écran
+  SDL_Surface *fplayer = NULL;
+  SDL_Surface *splayer = NULL;
 
-  SDL_Init(SDL_INIT_VIDEO); // Démarrage de la SDL (ici : chargement du système vidéo)
+  SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("Jetpack", NULL);
   ecran = SDL_SetVideoMode(p->x * 19, p->y * 19, 32, SDL_HWSURFACE);
   coin = SDL_CreateRGBSurface(SDL_HWSURFACE, 19, 19, 32, 255, 255, 0, 0);
   wall = SDL_CreateRGBSurface(SDL_HWSURFACE, 19, 19, 32, 0, 255, 255, 0);
   fplayer = SDL_CreateRGBSurface(SDL_HWSURFACE, 19, 19, 32, 0, 255, 0, 0);
   splayer = SDL_CreateRGBSurface(SDL_HWSURFACE, 19, 19, 32, 255, 0, 0, 0);
-  pthread_mutex_lock(&mutex);//SDL_PollEvent
+  pthread_mutex_lock(&mutex);
   SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 50));
   SDL_FillRect(coin, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
   SDL_FillRect(wall, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
@@ -131,6 +121,3 @@ void	game(t_data *p)
   pthread_join (th1, NULL);
   pthread_join (th2, NULL);
 }
-  //
-  //  pthread_join (monThreadAlarme, NULL); /* Attente de la fin des threads */
-  //pthread_create(&th2, NULL, talking2, &p);

@@ -5,12 +5,13 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:25:43 2017 dorian turba
-** Last update Tue Jul 18 14:38:19 2017 dorian turba
+** Last update Wed Jul 19 23:15:28 2017 Maxime Lacroix
 */
 
 #include "serv.h"
 
-int	get_fd_max(t_data_server *data_server, fd_set *fd_read, fd_set *fd_write)
+int	get_fd_max(t_data_server *data_server,
+		   fd_set *fd_read, fd_set *fd_write)
 {
   int	fd_max;
   int	i;
@@ -61,7 +62,6 @@ int	run_server(t_data_server *data_server)
   int		fd_max;
 
   fd_max = get_fd_max(data_server, &fd_read, &fd_write);
-  //printf("fd max = %d\n", fd_max);
   if (my_select(fd_max, &fd_read, &fd_write) == 84)
     return (84);
   my_isset(data_server, &fd_read, &fd_write);

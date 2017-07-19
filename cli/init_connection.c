@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Sat Jul 15 16:56:39 2017 Maxime Lacroix
-** Last update Tue Jul 18 18:58:09 2017 Maxime Lacroix
+** Last update Wed Jul 19 23:01:47 2017 Maxime Lacroix
 */
 
 #include "communication.h"
@@ -23,7 +23,6 @@ char    *hostname_to_ip(char *hostname)
 
   return inet_ntoa(*addr_list[0]);
 }
-
 
 void    init_communication(unsigned short port, char *ip, t_data *p)
 {
