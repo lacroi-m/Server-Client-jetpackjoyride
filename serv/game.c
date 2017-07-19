@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 13:36:53 2017 dorian turba
+** Last update Wed Jul 19 14:14:44 2017 dorian turba
 */
 
 #include "serv.h"
@@ -71,9 +71,9 @@ void	reload(t_data_server *d_s)
 	    g_d.win += d_s->clients[i].id;
 	  }
 	top_floor(d_s, i);
-	wall(d_s, i);
 	//coins(d_s, i);
       }
+  wall(d_s, &g_d);
   if (g_d.win > 0)
     tell_winner(d_s, g_d.win, g_d.c1, g_d.c2);
 }

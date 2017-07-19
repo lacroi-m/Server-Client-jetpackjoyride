@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Wed Jul 19 12:02:37 2017 dorian turba
+** Last update Wed Jul 19 15:42:11 2017 dorian turba
 */
 
 #include "serv.h"
@@ -47,31 +47,45 @@ void	player_cmd(t_data_server *d_s)
 				      * (strlen(tmp) +
 					 strlen(d_s->clients[i].msg)));
 	d_s->clients[i].msg = strcat(d_s->clients[i].msg, tmp);
-	printf("%s\n", d_s->clients[i].msg);
 	free(tmp);
 	free(tmp2);
       }
 }
 
-void	wall(t_data_server *d_s, int fd)
+void	wall(t_data_server *d_s, t_game_data *g_d)
 {
   float x;
   float y;
+  int	tmp;
 
-  x = d_s->clients[fd].pos_x;
-  y = d_s->clients[fd].pos_y;
-  if (x <= d_s->width && y <= d_s->height)
-    if (d_s->map[(int)x + d_s->width * (int)y] == 'e')
-      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (x + 1 <= d_s->width && y <= d_s->height)
-    if (d_s->map[(int)x + 1 + d_s->width * (int)y] == 'e')
-      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (x <= d_s->width && y + 1 <= d_s->height)
-    if (d_s->map[(int)x + d_s->width * ((int)y + 1)] == 'e')
-      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (x + 1 <= d_s->width && y + 1 <= d_s->height)
-    if (d_s->map[(int)x + 1 + d_s->width * ((int)y + 1)] == 'e')
-      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  FYN2
+    {
+      tmp = 0;
+      if (d_s->clients[i].fd)
+	{
+	  x = d_s->clients[i].pos_x;
+	  y = d_s->clients[i].pos_y;
+	  if (x <= d_s->width && y <= d_s->height)
+	    if (d_s->map[(int)x + d_s->width * ((int)y)] == 'e')
+	      tmp = 1;
+	  if (x + 1 <= d_s->width && y <= d_s->height)
+	    if (d_s->map[(int)x + 1 + d_s->width * ((int)y)] == 'e')
+	      tmp = 1;
+	  if (x <= d_s->width && y + 1 <= d_s->height)
+	    if (d_s->map[(int)x + d_s->width * ((int)y + 1)] == 'e')
+	      tmp = 1;
+	  if (x + 1 <= d_s->width && y + 1 <= d_s->height)
+	    if (d_s->map[(int)x + 1 + d_s->width * ((int)y + 1)] == 'e')
+	      tmp = 1;
+	  if (tmp == 1)
+	    {
+	      g_d->w1 = (d_s->clients[i].id == 2 ? 1 : g_d->w1);
+	      g_d->w2 = (d_s->clients[i].id == 1 ? 2 : g_d->w2);
+	    }
+	}
+    }
+  if (g_d->w1 + g_d->w2 > 0)
+    tell_winner(d_s, g_d->w1 + g_d->w2, g_d->c1, g_d->c2);
 }
 
 void	tell_winner(t_data_server *d_s, int result, int c1, int c2)
@@ -83,14 +97,14 @@ void	tell_winner(t_data_server *d_s, int result, int c1, int c2)
 	  if (result == 3)
 	    {
 	      if (c1 == c2)
-		sprintf(d_s->clients[i].msg, "FINISH -1");
+		sprintf(d_s->clients[i].msg, "FINISH -1\n");
 	      else if (c1 > c2)
-		sprintf(d_s->clients[i].msg, "FINISH %d", 1);
+		sprintf(d_s->clients[i].msg, "FINISH %d\n", 1);
 	      else
-		sprintf(d_s->clients[i].msg, "FINISH %d", 2);
+		sprintf(d_s->clients[i].msg, "FINISH %d\n", 2);
 	    }
 	  else
-	    sprintf(d_s->clients[i].msg, "FINISH %d", result);
+	    sprintf(d_s->clients[i].msg, "FINISH %d\n", result);
 	}
     }
 }
