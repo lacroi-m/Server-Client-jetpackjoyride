@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 01:19:24 2017 dorian turba
+** Last update Wed Jul 19 10:07:45 2017 dorian turba
 */
 
 #include "serv.h"
@@ -31,8 +31,21 @@ void	start(t_data_server *data_server)
       data_server->clients[i].msg = strdup("START");
 }
 
+void	init_game_data(t_data_server *d_s, t_game_data *g_d)
+{
+  g_d->grav = d_s->data_flags->grav;
+  g_d->win = 0;
+  g_d->c1 = 0;
+  g_d->c2 = 0;
+  g_d->w1 = 0;
+  g_d->w2 = 0;
+}
+
 void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
 {
+  t_game_data	g_d;
+
+  init_game_data(d_s);
   float *x;
   float *y;
 

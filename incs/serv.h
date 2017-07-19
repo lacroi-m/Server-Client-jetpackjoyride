@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Tue Jul 18 22:30:18 2017 dorian turba
+** Last update Wed Jul 19 10:02:16 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -33,6 +33,17 @@
 # define FYN2 for (int i = 0; i < MAX_FD; ++i)
 # define FYN3 for (int j = 0; j < MAX_FD; ++j)
 
+typedef struct	s_game_data
+{
+  float	x;
+  float	y;
+  int	c1;
+  int	c2;
+  int	w1;
+  int	w2;
+  int	win;
+  float	grav;
+}		t_game_data;
 
 typedef struct	s_data_flags
 {
