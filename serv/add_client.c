@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:52:59 2017 dorian turba
-** Last update Wed Jul 19 10:56:56 2017 dorian turba
+** Last update Wed Jul 19 18:20:13 2017 dorian turba
 */
 
 #include "serv.h"
@@ -21,7 +21,6 @@ void	init_client(t_client *client, int fd, t_data_server *data_server)
   client->is_ready = 0;
   client->jet_on_fire = 1;
   client->id = data_server->connected_player;
-  printf("id ? : %d\n", client->id);
 }
 
 void	add_client(t_data_server *data_server, int s)
@@ -47,5 +46,4 @@ void	add_client(t_data_server *data_server, int s)
   data_server->fct_write[cs] = client_write;
   client = &(data_server->clients[cs]);
   init_client(client, cs, data_server);
-  printf("Client : %d\n", data_server->clients[cs].fd);
 }

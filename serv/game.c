@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 14:14:44 2017 dorian turba
+** Last update Wed Jul 19 18:28:10 2017 dorian turba
 */
 
 #include "serv.h"
@@ -59,7 +59,6 @@ void	reload(t_data_server *d_s)
     if (d_s->clients[i].fd)
       {
 	init_game_data(d_s, &g_d, i);
-	printf("speed : %f\n", d_s->clients[i].speed);
 	d_s->clients[i].speed +=
 	  (sqrt(2 * (g_d.grav < 0 ? -g_d.grav : g_d.grav) * d_s->height)
 	   / 120) * d_s->clients[i].jet_on_fire;
@@ -71,8 +70,8 @@ void	reload(t_data_server *d_s)
 	    g_d.win += d_s->clients[i].id;
 	  }
 	top_floor(d_s, i);
-	//coins(d_s, i);
       }
+  //coins(d_s, &g_d);
   wall(d_s, &g_d);
   if (g_d.win > 0)
     tell_winner(d_s, g_d.win, g_d.c1, g_d.c2);

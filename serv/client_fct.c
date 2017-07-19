@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 15:13:58 2017 dorian turba
-** Last update Wed Jul 19 11:04:30 2017 dorian turba
+** Last update Wed Jul 19 18:20:18 2017 dorian turba
 */
 
 #include "serv.h"
@@ -39,17 +39,16 @@ void client_read(t_data_server *data_server, int fd)
   if (r > 0)
     {
       buf[r - 1] = '\0';
-      printf("Client command : %s\n", buf);
       manage_cmd_server(buf, data_server, fd);
     }
   else
     {
-      printf("%d: Connection closed\n", fd);
+      data_server->connected_player -= 1;
+      init_client(&data_server->clients[fd], fd, data_server);
       close(fd);
       data_server->fd_type[fd] = FD_FREE;
       data_server->clients[fd].fd = 0;
       data_server->clients[fd].is_ready = 0;
-      data_server->connected_player -= 1;
     }
 }
 

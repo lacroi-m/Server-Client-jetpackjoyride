@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Wed Jul 19 17:37:09 2017 dorian turba
+** Last update Wed Jul 19 18:28:02 2017 dorian turba
 */
 
 #include "serv.h"
@@ -77,7 +77,6 @@ void	wall(t_data_server *d_s, t_game_data *g_d)
 	  if (x + 1 <= d_s->width && y - 1 <= d_s->height)
 	    if (d_s->map[(int)x + 1 + d_s->width * ((int)y - 1)] == 'e')
 	      tmp = 1;
-	  printf("TMP = %d\n", tmp);
 	  if (tmp == 1)
 	    {
 	      g_d->w1 = (d_s->clients[i].id == 2 ? 1 : g_d->w1);
@@ -85,7 +84,6 @@ void	wall(t_data_server *d_s, t_game_data *g_d)
 	    }
 	}
     }
-  printf("w1 et w2 = %d et %d\n", g_d->w1, g_d->w2);
   if ((g_d->w1 + g_d->w2) > 0)
     tell_winner(d_s, g_d->w1 + g_d->w2, g_d->c1, g_d->c2);
 }

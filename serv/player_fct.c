@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Sun Jul 16 14:27:45 2017 dorian turba
-** Last update Wed Jul 19 11:32:02 2017 dorian turba
+** Last update Wed Jul 19 18:21:35 2017 dorian turba
 */
 
 #include "serv.h"
@@ -21,8 +21,6 @@ void	id(t_data_server *data_server, int fd, int fire)
 	    (5 + strlen(data_server->clients[fd].msg)));
   sprintf(tmp, "ID %d\n", data_server->clients[fd].id);
   strcat(data_server->clients[fd].msg, tmp);
-  printf("ID\n");
-  printf("send : %s\n", data_server->clients[fd].msg);
 }
 
 void	map(t_data_server *data_server, int fd, int fire)
@@ -39,8 +37,6 @@ void	map(t_data_server *data_server, int fd, int fire)
 	  data_server->map);
   strcat(data_server->clients[fd].msg, tmp);
   free(tmp);
-  printf("MAP\n");
-  printf("send : %s", data_server->clients[fd].msg);
 }
 
 void	ready(t_data_server *data_server, int fd, int fire)
