@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 01:19:24 2017 dorian turba
+** Last update Wed Jul 19 12:04:30 2017 dorian turba
 */
 
 #include "serv.h"
@@ -28,7 +28,7 @@ void	start(t_data_server *data_server)
 {
   FYN2
     if (data_server->clients[i].fd)
-      data_server->clients[i].msg = strdup("START");
+      data_server->clients[i].msg = strdup("START\n");
 }
 
 void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
@@ -43,7 +43,8 @@ void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
       {
 	(void)((x = &d_s->clients[i].pos_x) && (y = &d_s->clients[i].pos_y));
 	printf("speed : %f\n", d_s->clients[i].speed);
-	d_s->clients[i].speed += sqrt(2 * grav * d_s->height) / 120
+	d_s->clients[i].speed += (sqrt(2 * (grav < 0 ? -grav : grav) *
+				       d_s->height) / 120)
 	  * d_s->clients[i].jet_on_fire;
 	(void)((*y += d_s->clients[i].speed) && (*x += 5.f / 60.f));
 	if (*x + 1 > d_s->width)

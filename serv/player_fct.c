@@ -5,31 +5,42 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Sun Jul 16 14:27:45 2017 dorian turba
-** Last update Wed Jul 19 00:42:36 2017 dorian turba
+** Last update Wed Jul 19 11:32:02 2017 dorian turba
 */
 
 #include "serv.h"
 
 void	id(t_data_server *data_server, int fd, int fire)
 {
+  char	*tmp;
+
   (void)fire;
-  data_server->clients[fd].msg = malloc(sizeof(char) * 5);
-  sprintf(data_server->clients[fd].msg, "ID %d", data_server->clients[fd].id);
+  tmp = malloc(sizeof(char) * 5);
+  data_server->clients[fd].msg =
+    realloc(data_server->clients[fd].msg, sizeof(char) *
+	    (5 + strlen(data_server->clients[fd].msg)));
+  sprintf(tmp, "ID %d\n", data_server->clients[fd].id);
+  strcat(data_server->clients[fd].msg, tmp);
+  printf("ID\n");
   printf("send : %s\n", data_server->clients[fd].msg);
 }
 
 void	map(t_data_server *data_server, int fd, int fire)
 {
+  char	*tmp;
+  
   (void)fire;
+  tmp = malloc(sizeof(char) * (50 + strlen(data_server->map)));
   data_server->clients[fd].msg =
-    malloc(sizeof(char) * (50 + strlen(data_server->map)));
-  //  printf("DEBUG1\n");
-  sprintf(data_server->clients[fd].msg, "MAP %d %d %s",
-	  data_server->width, data_server->height,
+    realloc(data_server->clients[fd].msg, sizeof(char) *
+	    (50 + strlen(data_server->map +
+			 strlen(data_server->clients[fd].msg))));
+  sprintf(tmp, "MAP %d %d %s\n", data_server->width, data_server->height,
 	  data_server->map);
-  //  printf("DEBUG2\n");
-  //  printf("send : %s", data_server->clients[fd].msg);
-  //  printf("DEBUG3\n");
+  strcat(data_server->clients[fd].msg, tmp);
+  free(tmp);
+  printf("MAP\n");
+  printf("send : %s", data_server->clients[fd].msg);
 }
 
 void	ready(t_data_server *data_server, int fd, int fire)

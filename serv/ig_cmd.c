@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 18:42:19 2017 dorian turba
-** Last update Wed Jul 19 01:17:06 2017 dorian turba
+** Last update Wed Jul 19 12:02:37 2017 dorian turba
 */
 
 #include "serv.h"
@@ -28,12 +28,12 @@ void	player_cmd(t_data_server *d_s)
   char	*tmp;
   char	*tmp2;
   
-  tmp = malloc(sizeof(char) * 200);
-  memset(tmp, 0, sizeof(char) * 200);
-  tmp2 = malloc(sizeof(char) * 200);
   FYN2
     if (d_s->clients[i].fd)
       {
+	tmp = malloc(sizeof(char) * 200);
+	memset(tmp, 0, sizeof(char) * 200);
+	tmp2 = malloc(sizeof(char) * 200);
 	FYN3
 	  if (d_s->clients[j].fd)
 	    {
@@ -43,13 +43,14 @@ void	player_cmd(t_data_server *d_s)
 		      d_s->clients[j].coins);
 		strcat(tmp, tmp2);
 	    }
-	if (d_s->clients[i].msg != NULL)
-	  free(d_s->clients[i].msg);
-	d_s->clients[i].msg = strdup(tmp);
-	printf("'%s'\n", d_s->clients[i].msg);
+	d_s->clients[i].msg = realloc(d_s->clients[i].msg, sizeof(char)
+				      * (strlen(tmp) +
+					 strlen(d_s->clients[i].msg)));
+	d_s->clients[i].msg = strcat(d_s->clients[i].msg, tmp);
+	printf("%s\n", d_s->clients[i].msg);
+	free(tmp);
+	free(tmp2);
       }
-  free(tmp);
-  free(tmp2);
 }
 
 void	wall(t_data_server *d_s, int fd)
@@ -59,14 +60,18 @@ void	wall(t_data_server *d_s, int fd)
 
   x = d_s->clients[fd].pos_x;
   y = d_s->clients[fd].pos_y;
-  if (d_s->map[(int)x + d_s->width * (int)y] == 'e')
-    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (d_s->map[(int)x + 1 + d_s->width * (int)y] == 'e')
-    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (d_s->map[(int)x + d_s->width * ((int)y + 1)] == 'e')
-    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
-  if (d_s->map[(int)x + 1 + d_s->width * ((int)y + 1)] == 'e')
-    tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (x <= d_s->width && y <= d_s->height)
+    if (d_s->map[(int)x + d_s->width * (int)y] == 'e')
+      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (x + 1 <= d_s->width && y <= d_s->height)
+    if (d_s->map[(int)x + 1 + d_s->width * (int)y] == 'e')
+      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (x <= d_s->width && y + 1 <= d_s->height)
+    if (d_s->map[(int)x + d_s->width * ((int)y + 1)] == 'e')
+      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
+  if (x + 1 <= d_s->width && y + 1 <= d_s->height)
+    if (d_s->map[(int)x + 1 + d_s->width * ((int)y + 1)] == 'e')
+      tell_winner(d_s, 3 - d_s->clients[fd].id, 0, 0);
 }
 
 void	tell_winner(t_data_server *d_s, int result, int c1, int c2)
