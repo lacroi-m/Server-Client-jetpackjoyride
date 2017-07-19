@@ -5,7 +5,7 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Mon Jul 17 16:42:01 2017 dorian turba
-** Last update Wed Jul 19 12:27:54 2017 dorian turba
+** Last update Wed Jul 19 13:36:53 2017 dorian turba
 */
 
 #include "serv.h"
@@ -31,47 +31,51 @@ void	start(t_data_server *data_server)
       data_server->clients[i].msg = strdup("START\n");
 }
 
-void	init_game_data(t_data_server *d_s, t_game_data *g_d)
+void	init_game_data(t_data_server *d_s, t_game_data *g_d, int i)
 {
-  g_d->grav = d_s->data_flags->grav;
-  g_d->win = 0;
-  g_d->c1 = 0;
-  g_d->c2 = 0;
-  g_d->w1 = 0;
-  g_d->w2 = 0;
+  if (i == 0)
+    {
+      g_d->grav = d_s->data_flags->grav;
+      g_d->win = 0;
+      g_d->c1 = 0;
+      g_d->c2 = 0;
+      g_d->w1 = 0;
+      g_d->w2 = 0;
+    }
+  else
+    {
+      g_d->x = &d_s->clients[i].pos_x;
+      g_d->y = &d_s->clients[i].pos_y;
+    }
 }
 
-void	reload(t_data_server *d_s, int c1, int c2, float grav, int win)
+void	reload(t_data_server *d_s)
 {
   t_game_data	g_d;
 
-  init_game_data(d_s);
-  float *x;
-  float *y;
-
-  (void)((grav = d_s->data_flags->grav) && (win = 0));
+  init_game_data(d_s, &g_d, 0);
   player_cmd(d_s);
   FYN2
     if (d_s->clients[i].fd)
       {
-	(void)((x = &d_s->clients[i].pos_x) && (y = &d_s->clients[i].pos_y));
+	init_game_data(d_s, &g_d, i);
 	printf("speed : %f\n", d_s->clients[i].speed);
-	d_s->clients[i].speed += (sqrt(2 * (grav < 0 ? -grav : grav) *
-				       d_s->height) / 120)
-	  * d_s->clients[i].jet_on_fire;
-	(void)((*y += d_s->clients[i].speed) && (*x += 5.f / 60.f));
-	if (*x + 1 > d_s->width)
+	d_s->clients[i].speed +=
+	  (sqrt(2 * (g_d.grav < 0 ? -g_d.grav : g_d.grav) * d_s->height)
+	   / 120) * d_s->clients[i].jet_on_fire;
+	(void)((*g_d.y += d_s->clients[i].speed) && (*g_d.x += 5.f / 60.f));
+	if (*g_d.x + 1 > d_s->width)
 	  {
-	    c1 += d_s->clients[i].coins * (d_s->clients[i].id == 1);
-	    c2 += d_s->clients[i].coins * (d_s->clients[i].id == 2);
-	    win += d_s->clients[i].id;
+	    g_d.c1 += d_s->clients[i].coins * (d_s->clients[i].id == 1);
+	    g_d.c2 += d_s->clients[i].coins * (d_s->clients[i].id == 2);
+	    g_d.win += d_s->clients[i].id;
 	  }
 	top_floor(d_s, i);
 	wall(d_s, i);
 	//coins(d_s, i);
       }
-  if (win > 0)
-    tell_winner(d_s, win, c1, c2);
+  if (g_d.win > 0)
+    tell_winner(d_s, g_d.win, g_d.c1, g_d.c2);
 }
 
 /* void	coins(t_data_server d_s, int fd)

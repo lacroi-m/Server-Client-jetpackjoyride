@@ -5,7 +5,7 @@
 ** Login   <lacroi_m@epitech.net>
 ** 
 ** Started on  Thu Jul 13 09:44:49 2017 Maxime Lacroix
-** Last update Wed Jul 19 10:02:16 2017 dorian turba
+** Last update Wed Jul 19 12:59:14 2017 dorian turba
 */
 
 #ifndef _SERV_H_
@@ -35,8 +35,8 @@
 
 typedef struct	s_game_data
 {
-  float	x;
-  float	y;
+  float	*x;
+  float	*y;
   int	c1;
   int	c2;
   int	w1;
@@ -86,11 +86,11 @@ void	ready(t_data_server*, int, int);
 void	fire(t_data_server*, int, int);
 int	all_ready(t_data_server*);
 void	start(t_data_server*);
-void	reload(t_data_server*, int, int, float, int);
+void	reload(t_data_server*);
 void	player_cmd(t_data_server*);
 int	nblen(int);
 void	wall(t_data_server*, int);
 void	tell_winner(t_data_server*, int, int, int);
 void	top_floor(t_data_server*, int);
-  
+void	init_game_data(t_data_server*, t_game_data*, int);
 #endif /*_SERV_H_*/
