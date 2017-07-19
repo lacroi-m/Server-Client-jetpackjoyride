@@ -5,20 +5,20 @@
 ** Login   <turba_d@epitech.net>
 ** 
 ** Started on  Fri Jul 14 13:52:59 2017 dorian turba
-** Last update Wed Jul 19 00:49:00 2017 dorian turba
+** Last update Wed Jul 19 10:56:56 2017 dorian turba
 */
 
 #include "serv.h"
 
 void	init_client(t_client *client, int fd, t_data_server *data_server)
 {
-  client->msg = NULL;
+  client->msg = strdup("");
   client->fd = fd;
   client->pos_x = 0;
   client->pos_y = data_server->height / 2;
   client->speed = 0;
   client->coins = 0;
-  client->is_ready = 1;
+  client->is_ready = 0;
   client->jet_on_fire = 1;
   client->id = data_server->connected_player;
   printf("id ? : %d\n", client->id);
